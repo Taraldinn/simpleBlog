@@ -1,0 +1,60 @@
+{% extends "blog/base.html" %}
+
+
+{% block title %}
+
+    {{ post.title }}
+
+{% endblock %}
+{% block post_title %}{{ post.title }}{% endblock %}
+{% block post_published %}{{ post.published }}{% endblock %}
+{% block post_author %}{{ post.author }}{% endblock %}
+
+{% block content %}
+
+
+
+
+
+
+
+
+    <article class="mb-4">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    {{ post.body|linebreaks }}
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <div class="container">
+
+    <p>
+        <a href="{% url "blog:post_share"  post.id %}">
+            Share This Post
+        </a>
+    </p>
+
+    {% with comments.count as total_comments %}
+        <h2>
+            {{ total_comments }} comment{{ total_comments|pluralize }}
+        </h2>
+    {% endwith %}
+
+    {% for comments in comments %}
+        <div class="comment">
+            <p class="info">
+                Comment {{ forloop.counter }} by {{ comments.name }}
+                {{ comments.created }}
+            </p>
+            {{ comments.body|linebreaks }}
+        </div>
+
+    {% endfor %}
+
+    {% include "blog/post/includes/comment_form.html" %}
+
+</div>
+{% endblock %}

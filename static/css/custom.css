@@ -1,0 +1,13 @@
+@font-face {
+    font-family: 'Proza_Display';
+    src: url('../fonts/ProzaDisplay-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+
+body{
+    font-family: 'Proza_Display', sans-serif;
+
+}  

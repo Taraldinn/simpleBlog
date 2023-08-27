@@ -1,0 +1,4 @@
+.venv
+.idea
+.fleet
+db.sqlite3

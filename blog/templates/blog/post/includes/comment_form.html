@@ -1,0 +1,10 @@
+{% load crispy_forms_tags %}
+<h2>
+    Add New Comment
+</h2>
+
+<form action="{% url "blog:post_comment" post.id %}" method="post">
+    {% csrf_token %}
+    {% crispy form %}
+</form>
+
