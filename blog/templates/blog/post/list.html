@@ -1,4 +1,7 @@
+
+
 {% extends "blog/base.html"%}
+
 
 {% block title %} My Blog {%endblock%}
 
@@ -7,26 +10,50 @@
 
 
 
-
-
 <div class="container px-4 px-lg-5">
     <div class="row gx-4 gx-lg-5 justify-content-center">
         <div class="col-md-10 col-lg-8 col-xl-7">
+
+        {% if tag %}
+            <h1>Posts tagged with "{{ tag.name }}"</h1>
+        {% endif %}
+
             {% for post in posts %}
             <!-- Post preview-->
             <div class="post-preview">
                 <a href="{{ post.get_absolute_url }}">
                     <h2 class="post-title">{{post.title}}</h2>
+                    
+                    {% for tag in post.tags.all %}
+                        <a href="{% url "blog:post_list_by_tag" tag.slug %}">
+
+                        {{ tag.name }}
+
+
+                        </a>
+
+                        {% if not forloop.last %}, {% endif %}
+
+
+                    {% endfor %}
+                    
+                    
+                    
+                    <a href="{{ post.get_absolute_url }}" class="post-title">{{post.title}}</a>
                     <h3 class="post-subtitle">{{post.body|truncatewords:30|linebreaks }}</h3>
                 </a>
                 <p class="post-meta">
                     Posted by
                     <a href="#!">{{post.author}}</a>
-                    {{post.published}}                </p>
+                    {{post.published}}
+                    <span>tags:</span>
+                    <a>{{ post.tags.all | join:"," }}</a>
+
+                </p>
             </div>
             <!-- Divider-->
             <hr class="my-4" />
-        
+
             {% endfor %}
             <!-- Pager-->
             {% include "blog/pagination.html" with page=page_obj %}
@@ -34,6 +61,8 @@
         </div>
     </div>
 </div>
+
+{% include 'blog/pagination.html' with page=posts %}
 
 
 {% endblock%}
