@@ -9,6 +9,7 @@ from .forms import EmailPostForm, CommentForm
 from .models import Post
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger  # Create your views here.
 from django.views.generic import ListView
+from django.db.models import Count 
 
 
 # This is the function based view
@@ -30,6 +31,11 @@ def post_list(request, tag_slug=None):
         posts = paginator.page(paginator.num_pages)
 
     return render(request, 'blog/post/list.html', {'posts': posts, 'tag': tag})
+
+
+
+
+
 
 
 """
@@ -57,8 +63,15 @@ def post_detail(request, year, month, day, post):
                              )
     comments = post.comments.filter(active=True)
     form = CommentForm()
+    
+    
+    # List of similler post 
+    post_tags_ids = post.tags.values_list('id', flat=True)
+    similler_posts = Post.objects.filter(tags__in=post_tags_ids).exclude(id=post.id)
+    similler_posts = similler_posts.annotate(same_tags=Count('tags')).order_by('-same_tags', '-published')[:4]
+    
     return render(request,
-                  'blog/post/detail.html', {'post': post, 'comments': comments, 'form': form})
+                  'blog/post/detail.html', {'post': post, 'comments': comments, 'form': form, 'similler_posts': similler_posts})
 
 
 def post_share(request, post_id):

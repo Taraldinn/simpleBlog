@@ -4,7 +4,6 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from taggit.managers import TaggableManager
 
-
 # Create your models here.
 
 

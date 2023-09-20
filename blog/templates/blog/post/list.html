@@ -14,9 +14,9 @@
     <div class="row gx-4 gx-lg-5 justify-content-center">
         <div class="col-md-10 col-lg-8 col-xl-7">
 
-        {% if tag %}
+        {% comment %} {% if tag %}
             <h1>Posts tagged with "{{ tag.name }}"</h1>
-        {% endif %}
+        {% endif %} {% endcomment %}
 
             {% for post in posts %}
             <!-- Post preview-->
@@ -39,7 +39,6 @@
                     
                     
                     
-                    <a href="{{ post.get_absolute_url }}" class="post-title">{{post.title}}</a>
                     <h3 class="post-subtitle">{{post.body|truncatewords:30|linebreaks }}</h3>
                 </a>
                 <p class="post-meta">

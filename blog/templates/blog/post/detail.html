@@ -28,7 +28,7 @@
             </div>
         </div>
     </article>
-
+   
     <div class="container">
 
     <p>
@@ -36,6 +36,23 @@
             Share This Post
         </a>
     </p>
+
+
+    <h2>Similar Posts</h2>
+
+    {% for post in similler_posts %}
+        <h3>
+            <a href="{{ post.get_absolute_url }}">
+                {{ post.title }}
+            </a>
+        </h3>
+        {% empty %}
+        <p>
+            {{ post.body|truncatewords:30|linebreaks }}
+        </p>
+
+    {% endfor %}
+
 
     {% with comments.count as total_comments %}
         <h2>
