@@ -1,3 +1,4 @@
+{% load blog_tags %}
 {%load static%}
 
 <!DOCTYPE html>
@@ -40,7 +41,6 @@
         </div>
     </nav>
 
-
         <!-- Page Header-->
         <header class="masthead" style="background-image: url('https://i.ibb.co/W69R3DT/home-bg.jpg');  background-repeat: no-repeat;">
             <div class="container position-relative px-4 px-lg-5">
@@ -81,7 +81,12 @@
         </header>
 
 
-
+    
+        <section class="container mx-auto">
+            <p>This is my blog</p>
+            I have {% Posts_count %} posts
+        </section>
+    
 
         {%block content%}
         {%endblock%}
